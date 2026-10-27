@@ -270,6 +270,8 @@ xcodebuild -scheme Lander -destination 'generic/platform=iOS Simulator' build
 
 The core is platform independent and tested on macOS with a fake transport and platform; UIKit pieces sit behind `#if canImport(UIKit)`. Behavior follows the Flutter SDK (`sdk/lander_flutter`) in the Lander monorepo.
 
+The SDK is developed in the Lander monorepo and published to the read only mirror `github.com/SwiftwareIO/lander_ios`. How versions are tagged and the pod is published: [RELEASING.md](RELEASING.md).
+
 ## API
 
 The SDK only talks to Lander's public API (`/v1/sdk/init`, `/v1/sdk/resolve`, `/v1/sdk/events`, `/v1/sdk/links`, `/v1/sdk/handoffs/claim`) with the header `X-Lander-Sdk: ios/<version>`. Every request has a 10 second timeout; every write carries an `Idempotency-Key` that stays the same across retries.
