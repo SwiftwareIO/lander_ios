@@ -9,7 +9,7 @@ Deep linking without the fuss. The native iOS SDK for [Lander](https://golander.
 - Offline event queue with batching, retries and deduplication.
 - Privacy first: a random install ID, no fingerprinting, no IDFA, no pasteboard reads.
 
-Requires iOS 15+ and Xcode 16+ (Swift 6). Works with Swift 5 and Swift 6 language mode apps, SwiftUI and UIKit. Full docs: [golander.link/docs/ios](https://golander.link/docs/ios).
+Requires iOS 15+ and Xcode 16+ (Swift 6). Works with Swift 5 and Swift 6 language mode apps, SwiftUI and UIKit. Full docs: [docs.golander.link/docs/ios](https://docs.golander.link/docs/ios).
 
 ## Install
 
@@ -25,14 +25,6 @@ targets: [
   .target(name: "AcmeShop", dependencies: [.product(name: "Lander", package: "lander_ios")])
 ]
 ```
-
-### CocoaPods
-
-```ruby
-pod 'LanderSDK', '~> 0.1'
-```
-
-The pod is named `LanderSDK`; the module is still `Lander`, so you write `import Lander` either way.
 
 ## Set up your app
 

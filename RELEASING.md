@@ -5,7 +5,9 @@ The SDK lives in the Lander monorepo at `sdk/lander_ios`. Apps install it from t
 `.github/workflows/sdk-ios-release.yml` keeps the mirror in step:
 
 - **On every push to `main`** that touches `sdk/lander_ios`, it pushes the SDK folder (a `git subtree split`) to the mirror's `main`. It can also be run by hand from the Actions tab.
-- **On a monorepo tag `ios-vX.Y.Z`**, it checks that the tag matches the version in the source, the podspec and the changelog, runs `swift test`, pushes the tag `X.Y.Z` to the mirror and publishes the pod to CocoaPods trunk.
+- **On a monorepo tag `ios-vX.Y.Z`**, it checks that the tag matches the version in the source, the podspec and the changelog, runs `swift test`, pushes the tag `X.Y.Z` to the mirror and optionally publishes the pod to CocoaPods trunk if a trunk token is configured.
+
+The current public distribution is Swift Package Manager. `LanderSDK` is not published to CocoaPods trunk.
 
 ## One-time setup
 
@@ -21,7 +23,7 @@ The SDK lives in the Lander monorepo at `sdk/lander_ios`. Apps install it from t
 
    Without this secret the mirror job is skipped with a notice and a release fails before doing anything.
 
-2. **CocoaPods trunk.** Register once (this sends a confirmation email), then click the link in it:
+2. **Optional CocoaPods trunk setup (not configured).** Register once (this sends a confirmation email), then click the link in it:
 
    ```bash
    pod trunk register team@golander.link 'Lander' --description='lander release CI'
@@ -50,7 +52,7 @@ The SDK lives in the Lander monorepo at `sdk/lander_ios`. Apps install it from t
    git push origin ios-vX.Y.Z
    ```
 
-4. Watch the "iOS SDK release" run. When it is green, `.package(url: "https://github.com/SwiftwareIO/lander_ios", from: "X.Y.Z")` and `pod 'LanderSDK', '~> X.Y'` both resolve the new version.
+4. Watch the "iOS SDK release" run. When it is green, `.package(url: "https://github.com/SwiftwareIO/lander_ios", from: "X.Y.Z")` resolves the new version. CocoaPods only resolves it if the optional trunk publication was configured and completed.
 
 If the version check fails, delete the monorepo tag (`git push origin :refs/tags/ios-vX.Y.Z`), fix the versions in a pull request and tag again. The workflow never moves a tag that already exists on the mirror, and published pods cannot be overwritten: release a new patch version instead.
 
